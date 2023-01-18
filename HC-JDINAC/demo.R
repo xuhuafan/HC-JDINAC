@@ -26,7 +26,6 @@ colnames(rm)=c("S1","S2",x_index)
 df=data.frame(rm)
 #write.csv(df,"HC features.csv") 
 
-
 ##run JDINAC
 y1=13;y2=16
 y_ind=c(y1,y2)
@@ -44,9 +43,7 @@ vs=sort(vs,decreasing = FALSE)
 vs=vs[vs!=4000]
 x_ind=ifelse(x_index %in% vs,1,0)
 x_ind[pdim+1]=1
-
-## 构建edge:
-
+EDGE=edge_construct(vs)
 
 sam_train=NULL
 for(i in y_ind){
