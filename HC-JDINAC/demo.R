@@ -22,7 +22,7 @@ for(j in all_y){
   }
 }
 rm=matrix(r,ncol=pdim+2,byrow=TRUE)
-colnames(rm)=c("S1","S2",x_index)
+colnames(rm)=c("S1","S2",colnames(data[1:pdim])
 df=data.frame(rm)
 #write.csv(df,"HC features.csv") 
 
@@ -34,7 +34,7 @@ for(i in c(1:length(y_ind))){
   num=y_ind[i]
   sam=df[df$S1==num|df$S2==num,]
   c=colSums(sam[,3:(pdim+2)])  
-  c=data.frame(index,c)
+  c=data.frame(x_index,c)
   all=c[c$c>0,1] 
   vs=c(vs,all)
 }
