@@ -1,3 +1,13 @@
+#' Perform HC feature selection
+#'
+#' \code{HC} returns the HC feature selection result.
+#'
+#' @param y1 One sample label to be tested by HC
+#' @param y2 The other sample label to be tested by HC
+#' @param x Data matrix
+#' @param alpha Threshold value of t test in HC
+#'
+#' @return The output will be a vector of 0,1 with a length equal to the number of variables, where 1 indicates that the variable is valid.
 HC=function(y1,y2,x,alpha=0.1){
   p_t=NULL
   m=ncol(x)-1  #number of variables
