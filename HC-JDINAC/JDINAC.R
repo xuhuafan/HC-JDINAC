@@ -43,85 +43,24 @@ denPre2D.h <- function(edge,h0,h1,classLabel,DataFit,newData,method=c("integers"
   denPre
 }
 
-# JDINAC：
-########################################
-jdinac.z.h <- function(h0,h1,EDGE,classLabel,DataFit,DataPre,zFit,zPre,nsplit=10,nfolds=5){
- 
-  if(class(zFit)!="matrix" | class(zPre)!="matrix")
-    stop("zFit and zPre must be 'matrix'")
-  if(nsplit<=0){       
-    stop("nsplit must be positive integer")  
-  } 
-  else {
-    preY <- NULL
-    vset <- NULL
-    vars=NULL
-    for(i in 1:nsplit){
-      size0 <- sum(classLabel==0)
-      size1 <- sum(classLabel==1)
-      sn0 <- round(size0/2)
-      sn1 <- round(size1/2)
-      index0 <- which(classLabel==0)
-      index1 <- which(classLabel==1)
-    
-      set.seed(10*i+123)
-      splitid <- c(sample(index0,sn0),sample(index1,sn1))
-
-      cLabel <- classLabel[splitid]
-      denX <- apply(EDGE,1,denPre2D.h,h0=h0,h1=h1,classLabel=cLabel,DataFit=DataFit[splitid,],newData=rbind(DataFit[-splitid,],DataPre))
-      y <- classLabel[-splitid]
-      zfit <- zFit[-splitid, drop=F]
-      cv.fit <- cv.glmnet(x=cbind(zfit,denX[1:length(y),]), y=y, family = "binomial", nfolds=nfolds) 
-      yp <- predict(cv.fit,newx=cbind(zPre,denX[-(1:length(y)),]), s="lambda.min",type="response")
-      preY <- cbind(preY,yp) 
-      coes<-coef(cv.fit,s="lambda.min")[-1]  
-      coefs <- which(coes!=0)
-      vset <- c(vset,coefs)
-      var=cbind(coefs,rep(2*i-1,length(coefs)),coes[coefs])
-      vars=rbind(vars,var)
-      
-      cLabel <- classLabel[-splitid]        
-      denX <- apply(EDGE,1,denPre2D.h,h0=h0,h1=h1,classLabel=cLabel,DataFit=DataFit[-splitid,],newData=rbind(DataFit[splitid,],DataPre))
-      y <- classLabel[splitid]
-      zfit <- zFit[splitid, ,drop=F]
-      cv.fit <- cv.glmnet(x=cbind(zfit,denX[1:length(y),]), y=y, family = "binomial", nfolds=nfolds) 
-      yp <- predict(cv.fit,newx=cbind(zPre,denX[-(1:length(y)),]), s="lambda.min",type="response")
-      preY <- cbind(preY,yp) 
-      coes<-coef(cv.fit,s="lambda.min")[-1]  
-      coefs <- which(coes!=0)
-      vset <- c(vset,coefs)   
-      var=cbind(coefs,rep(2*i-1,length(coefs)),coes[coefs]) 
-      vars=rbind(vars,var)
-    } 
-    
-  
-    yPre <- rowMeans(preY) 
-    numb <- table(vset)
-    Vid <- as.numeric(rownames(numb))
-    
-    Eset <- cbind(EDGE[Vid,],numb)
-    Eset <- Eset[order(Eset[,3],decreasing=T),]
-    colnames(Eset) <- c("row","col","numb")
-    Vars=cbind(vars,EDGE[vars[,1],])
-    Vars=Vars[,-1]
-    colnames(Vars)=c("t","coef","row","col")
-    
-  } 
-  list(yPre=yPre,Eset=Eset,Vars=Vars) 
-}
-
-
-jdinac.h <- function(h0,h1,EDGE,classLabel,DataFit,DataPre,zFit=NULL,zPre=NULL,nsplit=10,nfolds=5){
+#' Perfrom JDINAC
+#'
+#' \code{JDINAC.h} returns the results of JDINAC method, including predicted probablity, selected interactions and their weights, and non-zero coefficients.
+#'
+#' @param h0 The bandwidth of class 0 samples
+#' @param h1 The bandwidth of class 1 samples
+#' @param EDGE The interaction terms to consider in logistic regression
+#' @param classLabel The class labels of DataFit
+#' @param DataFit The data used to train JDINAC model
+#' @param DataPre The data to be predicted
+#' @param nsplit The number of data split
+#' @param nfolds The folds of cross validation
+#'
+#' @return The output will be a named list containing the predicted probablity of DataPre, the selected interactions and their weight, and non-zero coefficients.
+jdinac.h <- function(h0,h1,EDGE,classLabel,DataFit,DataPre,nsplit=10,nfolds=5){
   
   if(missing(DataPre)) {
     DataPre <- DataFit
-    zPre <- zFit
-  } 
- 
-  if(!is.null(zFit) & !is.null(zPre)){
-    Pre.Z <- jdinac.z(h0=h0,h1=h1,EDGE=EDGE,classLabel=classLabel,DataFit=DataFit,DataPre=DataPre, zFit=zFit,zPre=zPre,nsplit=nsplit,nfolds=nfolds)
-    yPre <- Pre.Z$yPre 
-    Eset <- Pre.Z$Eset 
   } 
   else if(nsplit<=0){       
     stop("nsplit must be positive integer")    
@@ -184,10 +123,3 @@ jdinac.h <- function(h0,h1,EDGE,classLabel,DataFit,DataPre,zFit=NULL,zPre=NULL,n
   } 
   list(yPre=yPre,Eset=Eset,Vars=Vars) 
 }
-
-
-
-
-
-
-
