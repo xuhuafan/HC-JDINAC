@@ -89,7 +89,7 @@ index=rep(0,pdim)
 for(i in 1:pdim){index[i]=as.numeric(substring(colnames(data)[i],2,))}
 
 dfh=read.csv("HC feature.csv")  ##HC feature selection result
-dh=colSums(dfh[dfh[,1] %in% c(y1,y2) | dfh[,2] %in% c(y1,y2),-c(1,2,872)])
+dh=colSums(dfh[dfh[,1] %in% c(y1,y2) | dfh[,2] %in% c(y1,y2),-c(1,2)])
 vs=index[which(dh>=1)]
 vs=vs[vs<4000]
 p=length(vs)
