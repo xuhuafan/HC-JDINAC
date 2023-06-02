@@ -33,7 +33,7 @@
 #' for(i in 1:pdim){index[i]=as.numeric(substring(colnames(data)[i],2,))}
 #' 
 #' dfh=read.csv("HC feature.csv")  ##HC feature selection result
-#' dh=colSums(dfh[dfh[,1] %in% c(y1,y2) | dfh[,2] %in% c(y1,y2),-c(1,2,872)])
+#' dh=colSums(dfh[dfh[,1] %in% c(y1,y2) | dfh[,2] %in% c(y1,y2),-c(1,2)])
 #' vs=index[which(dh>=1)]
 #' vs=vs[vs<4000]
 #' p=length(vs)
@@ -194,7 +194,7 @@ jdinac.m <- function(h0,h1,EDGE,classLabel,DataFit,DataPre,nsplit=10,nfolds=5){
     yPre <- rowMeans(preY)  
     numb <- table(vset)   
     Vid <- as.numeric(rownames(numb))  
-    Eset <- cbind(EDGE[Vid,],numb)  
+    Eset <- cbind(EDGE[Vid,],as.numeric(numb))  
     Eset <- Eset[order(Eset[,3],decreasing=T),]  
     colnames(Eset) <- c("row","col","numb")
     
