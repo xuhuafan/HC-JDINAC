@@ -71,7 +71,7 @@ HCT=function(x1,x2,alpha=0.1){
   th_z=(sort(abs(Zs),decreasing = T))[t]
   res["abs_Z"]=abs(Zs)
   res["HC"]=HC[rank(p_t)]
-  v=ifelse(res$abs_z >= th_z,1,0)
+  v=ifelse(res$abs_Z >= th_z,1,0)
   res["v"]=v
   colnames(res)=c("col","p-value","Z-stat","abs_Z","HC","sel")
   return(list(res=res,th_z=th_z))
