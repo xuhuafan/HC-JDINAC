@@ -205,7 +205,7 @@ eset['v2']=vs[eset[,2]]
 ### Description
 Perform JDINAC with bivariate kernel density estimation using bandwidth matrix.
 ### Usage
-`jdinac(h0,h1,EDGE,classLabel,DataFit,DataPre,nsplit=10,nfolds=5) `
+`jdinac.m(h0,h1,EDGE,classLabel,DataFit,DataPre,nsplit=10,nfolds=5) `
 ### Arguments
 * h0: bandwidth matrix list for class 0, consisting of bandwidth matrixs for each edge (interaction) in EDGE.
 * h1: bandwidth matrix list for class 1, consisting of bandwidth matrixs for each edge (interaction) in EDGE.
@@ -279,7 +279,7 @@ for(e in 1:nrow(EDGE)){
   joint_bw1[[e]]=bw1
 }
 
-difnet=jdinac(h0=joint_bw0,h1=joint_bw1,EDGE=EDGE,classLabel=classlabel_train,DataFit=datafit,DataPre=datapre,nsplit=10,nfolds=5) 
+difnet=jdinac.m(h0=joint_bw0,h1=joint_bw1,EDGE=EDGE,classLabel=classlabel_train,DataFit=datafit,DataPre=datapre,nsplit=10,nfolds=5) 
 ypre=ifelse(difnet$yPre>0.5,1,0) ##predicted class
 mean(ypre!=classlabel_test)   #classification error
 ypre=data.frame(ypre)
