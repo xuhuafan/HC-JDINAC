@@ -231,7 +231,7 @@ jdinac <- function(h0,h1,EDGE,classLabel,DataFit,DataPre,nsplit=10,nfolds=5){
     yPre <- rowMeans(preY)  
     numb <- table(vset)  
     Vid <- as.numeric(rownames(numb))  
-    Eset <- cbind(EDGE[Vid,],numb)  
+    Eset <- cbind(EDGE[Vid,],as.numeric(numb))  
     Eset <- Eset[order(Eset[,3],decreasing=T),]  
     colnames(Eset) <- c("row","col","numb")
     
