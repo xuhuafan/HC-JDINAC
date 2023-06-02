@@ -73,7 +73,7 @@
 #'   joint_bw1[[e]]=bw1
 #' }
 #' 
-#' difnet=jdinac(h0=joint_bw0,h1=joint_bw1,EDGE=EDGE,classLabel=classlabel_train,DataFit=datafit,DataPre=datapre,nsplit=10,nfolds=5) 
+#' difnet=jdinac.m(h0=joint_bw0,h1=joint_bw1,EDGE=EDGE,classLabel=classlabel_train,DataFit=datafit,DataPre=datapre,nsplit=10,nfolds=5) 
 #' ypre=ifelse(difnet$yPre>0.5,1,0) ##predicted class
 #' mean(ypre!=classlabel_test)   #classification error
 #' ypre=data.frame(ypre)
@@ -177,7 +177,7 @@ jdinac.m <- function(h0,h1,EDGE,classLabel,DataFit,DataPre,nsplit=10,nfolds=5){
         H0=h0[[e]]
         H1=h1[[e]]
         edge=EDGE[e,]
-        denx=denPre2D.joint(edge,H0,H1,classLabel=cLabel,DataFit=DataFit[-splitid,],newData=rbind(DataFit[splitid,],DataPre))
+        denx=denPre2D.m(edge,H0,H1,classLabel=cLabel,DataFit=DataFit[-splitid,],newData=rbind(DataFit[splitid,],DataPre))
         denX=cbind(denX,denx)
       }
       y <- classLabel[splitid]
