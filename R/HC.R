@@ -19,6 +19,7 @@
 #' vs=colnames(data)[which(sel==1)]  #selected features
 #' 
 #' ## Perform HC-LDA on sample pair E13,E16.
+#' library(MASS)
 #' data=read.csv("Edata.csv")
 #' data=data.frame(na.omit(data))
 #' y1=13;y2=16
