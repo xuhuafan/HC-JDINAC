@@ -23,10 +23,11 @@ y1=13;y2=16
 x1=data[data$y == y1,-ncol(data)]
 x2=data[data$y == y2,-ncol(data)]
 HCT_res=HCT(x1,x2,alpha=0.1)$res
-sel=HC_res$sel
+sel=HCT_res$sel
 vs=colnames(data)[which(sel==1)]  #selected features
 
 ##Perform HC-LDA on sample pair E13,E16.
+library(MASS)
 data=read.csv("Edata.csv")
 data=data.frame(na.omit(data))
 y1=13;y2=16
@@ -39,7 +40,7 @@ sam_ind2=sample(ind2,ceiling(length(ind2)*0.5))
 x1=dt[sam_ind1,-ncol(dt)]
 x2=dt[sam_ind2,-ncol(dt)]
 HCT_res=HCT(x1,x2,alpha=0.1)$res
-sel=HC_res$sel;sel_col=which(sel==1)
+sel=HCT_res$sel;sel_col=which(sel==1)
 train=dt[c(sam_ind1,sam_ind2),c(sel_col,ncol(dt))]
 test=dt[-c(sam_ind1,sam_ind2),c(sel_col,ncol(dt))]
 lda.fit=lda(y~., data=train)
