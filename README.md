@@ -13,7 +13,7 @@ Perfrom Higher Criticism Thresholding feature selection.
 ### Value
 The output will be a list containing the following components: 
 * res: data frame, the first column is the variable index; the second column through fourth columns are p-value, Z-statistic, the absolute value of the Z-statistic and HC objective score, respectively; the last column is feature selection indicator of 0,1, where 1 indicates the corresponding feature is selected by HCT and 0 indicates it is not selected. 
-* th_z: the higher criticism threshold $\hat{t}^HC$. 
+* th_z: the higher criticism threshold $t^{HC}$. 
 ### Examples
 ```
 ##Perform HCT on sample pair E13,E16.
