@@ -72,6 +72,7 @@
 #' ypre=data.frame(ypre)
 #' ypre['true_class']=classlabel_test
 #' ypre['label']=sam_test$y
+#' ypre=cbind(ypre,difnet$yPre,difnet$preY)
 #' Vars=data.frame(difnet$Vars)  #coefficients
 #' Vars['v1']=vs[Vars[,3]]  
 #' Vars['v2']=vs[Vars[,4]]  
@@ -105,20 +106,6 @@
 #' p=length(vs)
 #' x_ind=ifelse(index %in% vs,1,0) 
 #' x_ind[pdim+1]=1
-#' 
-#' E=diag(0,p)
-#' colnames(E)=vs
-#' rownames(E)=vs
-#' f_same=function(vs,x,num){row=ifelse(vs %in% x,num,0)}
-#' pvc=c(600:750,1076:1116,1183:1223,1232:1272,1310:1350,1409:1449,2830:2870,2904:2944,2948:2988)  
-#' caco3=c(698:732,833:896,1064:1104,1420:1460,1776:1816,2493:2533,2855:2895,2962:3002)
-#' PAEs=c(685:790,1020:1093,1104:1144,1266:1306,1361:1401,1442:1482,1560:1620,1710:1750,2843:2894,2912:2981,3017:3057,3417:3457)
-#' E[f_same(vs,pvc,1)==1,f_same(vs,pvc,1)==1]=1
-#' E[f_same(vs,caco3,2)==2,f_same(vs,caco3,2)==2]=1
-#' E[f_same(vs,PAEs,3)==3,f_same(vs,PAEs,3)==3]=1
-#' E[lower.tri(E,diag=T)]=0  
-#' EDGE=which(E!=0, arr.ind=T)  
-#' 
 #' ## input data
 #' sam_train=train[,x_ind==1]
 #' sam_test=test[,x_ind==1]
@@ -138,6 +125,7 @@
 #' ypre=data.frame(ypre)
 #' ypre['true_class']=classlabel_test
 #' ypre['label']=sam_test$y
+#' ypre=cbind(ypre,difnet$yPre,difnet$preY)
 #' Vars=data.frame(difnet$Vars)  #coefficients
 #' Vars['v1']=vs[Vars[,3]]  
 #' Vars['v2']=vs[Vars[,4]]  
