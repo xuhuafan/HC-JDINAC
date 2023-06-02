@@ -33,7 +33,7 @@
 #' for(i in 1:pdim){index[i]=as.numeric(substring(colnames(data)[i],2,))}
 #' 
 #' dfh=read.csv("HC feature.csv")  ##HC feature selection result
-#' dh=colSums(dfh[dfh[,1] %in% c(y1,y2) | dfh[,2] %in% c(y1,y2),-c(1,2,872)])
+#' dh=colSums(dfh[dfh[,1] %in% c(y1,y2) | dfh[,2] %in% c(y1,y2),-c(1,2)])
 #' vs=index[which(dh>=1)]
 #' vs=vs[vs<4000]
 #' p=length(vs)
@@ -145,9 +145,10 @@
 #' eset=data.frame(eset)
 #' eset['v1']=vs[eset[,1]]
 #' eset['v2']=vs[eset[,2]] 
-
+library(KernSmooth)
+library(akima)
+library(glmnet)
 denPre2D <- function(edge,h0,h1,classLabel,DataFit,newData){
-
   Index0 <- which(classLabel==0)
   Index1 <- which(classLabel==1)
 
