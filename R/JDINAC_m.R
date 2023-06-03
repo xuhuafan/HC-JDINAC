@@ -87,8 +87,9 @@
 #' eset['v1']=vs[eset[,1]]
 #' eset['v2']=vs[eset[,2]] 
 
-
-
+library(ks)
+library(akima)
+library(glmnet)
 denPre2D.m <- function(edge,H0,H1,classLabel,DataFit,newData){
   Index0 <- which(classLabel==0)
   Index1 <- which(classLabel==1)
