@@ -10,7 +10,7 @@ Perfrom Higher Criticism Thresholding feature selection.
 * x1: data matrices for first class containing one sample per row, one variable per column. 
 * x2: data matrices for second class containing one sample per row, one variable per column. 
 * alpha: significance level of two-sample test.
-### Value
+### Values
 The output will be a list containing the following components: 
 * res: data frame, the first column is the variable index; the second column through fourth columns are p-value, Z-statistic, the absolute value of the Z-statistic and HC objective score, respectively; the last column is feature selection indicator of 0,1, where 1 indicates the corresponding feature is selected by HCT and 0 indicates it is not selected. 
 * th_z: the higher criticism threshold $\hat{t}^{HC}$. 
