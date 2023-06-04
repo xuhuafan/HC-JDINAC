@@ -36,8 +36,8 @@ gp=group_plot(eset)
 p1=gp$p1  #dumbbell diagram like Figure 5 in paper
 p2=gp$p2  #bar chart like Figure 5 in paper
 
-##perform HC-JDINAC on given two communities c0,c1
-c0=c(3,13,26,29);c1=c(16,21,30,44)
+##perform HC-JDINAC on given two communities C0,C1
+C0=c(3,13,26,29);C1=c(16,21,30,44)
 data=read.csv("community.csv")
 dfh=read.csv("HC feature.csv")  ##HC feature selection result
 result=jdinac_bd(y1,y2,data,dfh,k0=1,k1=1)
@@ -45,15 +45,14 @@ eset=result$eset ## differential edge/interaction selected by JDINAC
 err=result$err ## classification error
 p=diffnet_plot(eset) ## differential interaction network
 
-##perform communitities c0,c1 identification using differential interactions of sample pair y1,y2. (see Table 6 in paper)
+##perform communitities C0,C1 identification using differential interactions of sample pair y1,y2. (see Table 6 in paper)
 y1=13;y2=16
 data=read.csv("individual.csv")
 dfh=read.csv("HC feature.csv")  ##HC feature selection result
-result1=jdinac_bd(y1,y2,data,dfh,k0=1,k1=1)
-eset1=result$eset ## individual differential edge/interaction selected by JDINAC
-c0=c(3,13,26,29);c1=c(16,21,30,44)
+eset1=jdinac_bd(y1,y2,data,dfh,k0=1,k1=1)$eset  ## individual differential edges/interactions
+C0=c(3,13,26,29);C1=c(16,21,30,44)
 dt=read.csv("community-individual.csv")
-res=com_ind(eset1,c0,c1,dt)  ##testing classification error and confusing rate
+res=com_ind(eset1,C0,C1,dt)  ##testing classification error and confusing rate
 ```
 
 ## JDINAC with bivariate kernel density estimation using bandwidth matrix.
