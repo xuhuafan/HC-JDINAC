@@ -176,7 +176,7 @@ jdinac_bd=function(y1,y2,data,dfh,k0=1,k1=1){
   ypre['true_class']=classlabel_test
   ypre['label']=sam_test$y
   ypre=cbind(ypre,difnet$yPre,difnet$preY)
-  colnames(ypre)=c("pred_class","true_class","label","pred",paste0("prob",1:20))
+  colnames(ypre)=c("pred_class","true_class","label","pred",paste0("prob",1:ncol(difnet$preY))
   Vars=data.frame(difnet$Vars)  #coefficients
   Vars['v1']=vs[Vars[,3]]
   Vars['v2']=vs[Vars[,4]]
