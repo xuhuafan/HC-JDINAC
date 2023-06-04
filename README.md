@@ -8,7 +8,7 @@ Perfrom HC-LDA, FAIR-LDA, SFLDA and FANS. Compute classification error (CE) and 
 ```
 ##Given individual y1,y2, perform HC-LDA, FAIR-LDA, SFLDA and FANS.
 data=read.csv("Edata.csv")
-y1=13;y2=16  ## perform binary classification between any two individauls by changing y1,y2, $y1,y2 \in I=\{2,\cdots,7,9,\cdots,30,32,34,\cdots$, $37,40,41,44,\cdots, 49\}.$
+y1=13;y2=16  ## perform binary classification between any two individauls by changing y1,y2; y1,y2 belongs to {2,···,7,9,···,30,32,34,···,37,40,41,44,···, 49}.
 result_hc=HC_LDA(y1,y2,data,alpha=0.1)  ## HC-LDA result
 result_hc$res  ##testing classification error(CE) and FDR
 result_fair=FAIR_LDA(y1,y2,data,alpha=0.1)  ## FAIR-LDA result
