@@ -198,6 +198,27 @@ jdinac_md=function(y1,y2,data,dfh){
   list(err=err,eset=eset)
 }
 
+#' @description function diffnet_plot: plot differential interaction network.
+#' @param eset: dataframe containing one differential edge per row, and columns "v1","v2" repersent two nodes connected by the differntial edge.
+#' @return The output will be a network diagram.
+#' @export p1: the differential interaction network diagram.
+library(igraph)
+library(ggraph)
+library(tidygraph)
+diffnet_plot=function(eset){
+  ed=eset[,c("v1","v2")]  #dataframe for construct network
+  nw=graph_from_data_frame(ed,directed=FALSE)
+  degs=degree(nw)
+  graph_gt <- as_tbl_graph(nw)
+  layout=create_layout(graph_gt, layout = 'stress')
+  p1=ggraph(layout)+geom_edge_link(color="gray") + geom_node_point(size=6.3,shape=21,
+ aes(fill=ifelse(degs>=5,"red","steelblue")),alpha=0.2)+
+    geom_node_text(aes(label=name),size=2)+scale_color_discrete()+
+    scale_edge_width(range=c(0.2,3))+theme_graph()+
+    theme(legend.position = "none")
+  return(p1)
+}
+
 #' @description function group_plot: Wavenumbers are grouped and dumbbell graphs and bar graphs are drawn to analyze the distribution of differential interactions.
 #' @param d: dataframe containing one differential edge per row, and columns "v1","v2" repersent the two nodes connected by the differntial edge.
 #' @return The output will be a network diagram.
