@@ -67,6 +67,10 @@ dfh=read.csv("HC feature.csv")  ##HC feature selection result
 result=jdinac_md(y1,y2,data,dfh)
 eset=result$eset ## differential edge/interaction selected by JDINAC
 err=result$err ## classification error
+p=diffnet_plot(eset) ## differential interaction network
+gp=group_plot(eset)
+p1=gp$p1  #dumbbell diagram like Figure 5 in paper
+p2=gp$p2  #bar chart like Figure 5 in paper
 ```
 
 
