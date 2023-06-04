@@ -1,7 +1,7 @@
 # HC-JDINAC
 This package provides the R function to implement the HC-JDINAC method for micro trace evidence examination, as used in the manuscript, "HC-JDINAC: Identifying Important Individual Features and Interaction Differences from Highly Similar FTIR Spectra".
   
-## HC-LDA
+## HC_evaluation.R
 ### Description
 Perfrom HC-LDA, FAIR-LDA, FANS and SFLDA. Compute classification error (CE) and FDR like Table 3 in paper.
 ### Examples
