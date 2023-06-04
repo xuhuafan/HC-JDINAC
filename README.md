@@ -3,20 +3,20 @@ This package provides the R function to implement the HC-JDINAC method for micro
   
 ## HC_evaluation.R
 ### Description
-Perfrom HC-LDA, FAIR-LDA, FANS and SFLDA. Compute classification error (CE) and FDR like Table 3 in paper.
+Perfrom HC-LDA, FAIR-LDA, SFLDA and FANS. Compute classification error (CE) and FDR like Table 3 in paper.
 ### Examples
 ```
-##Given individual y1,y2, perform HC-LDA, FAIR-LDA, FANS and SFLDA. 
+##Given individual y1,y2, perform HC-LDA, FAIR-LDA, SFLDA and FANS.
 data=read.csv("Edata.csv")
 y1=13;y2=16  ## perform binary classification between any two individauls by changing y1,y2
 result_hc=HC_LDA(y1,y2,data,alpha=0.1)  ## HC-LDA result
 result_hc$res  ##testing classification error(CE) and FDR
 result_fair=FAIR_LDA(y1,y2,data,alpha=0.1)  ## FAIR-LDA result
 result_fair$res  ##testing classification error(CE) and FDR
-result_fans=FANS(y1,y2,data,nsplit=10,nfolds=5)  ## FANS result
-result_fans$res  ##testing classification error(CE) and FDR
 result_sflda=SFLDA(y1,y2,data)  ## SFLDA result
 result_sflda$res  ##testing classification error(CE) and FDR
+result_fans=FANS(y1,y2,data,nsplit=10,nfolds=5)  ## FANS result
+result_fans$res  ##testing classification error(CE) and FDR
 ```
 
 ## JDINAC_b.R
