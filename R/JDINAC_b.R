@@ -131,7 +131,7 @@ jdinac <- function(h0,h1,EDGE,classLabel,DataFit,DataPre,nsplit=10,nfolds=5){
 #' @param k1: the varying scale of bandwidths for class y2 in JDINAC;
 #' @return The output will be a list containing the following components:
 #' @export err: testing classification error.
-#' @export Eset: matrix of differential edge set. The first two columns are the array indices; the edge between row-th variable and col-th variable. The 3rd column (numb) is the differential dependency weight; not normalized. The last two columns are features(wavenumbers) of each edge set.
+#' @export eset: matrix of differential edge set. The first two columns are the array indices; the edge between row-th variable and col-th variable. The 3rd column (numb) is the differential dependency weight; not normalized. The fourth and fifth columns are features(wavenumbers) of each edge set. The last column is the sign of edges, positive or negative.
 #' @export Vars: matrix of nonzero coefficients in all data split. The first column (t) is the t-th data split. The second column (coef) is the nonzero coefficients (excluding intercept). The third and fourth columns are the array indices, the edge between row-th variable and col-th variable.The last two columns are features(wavenumbers) of each edge.
 
 jdinac_bd=function(y1,y2,data,dfh,k0=1,k1=1){
@@ -184,6 +184,26 @@ jdinac_bd=function(y1,y2,data,dfh,k0=1,k1=1){
   eset=data.frame(eset)
   eset['v1']=vs[eset[,1]]
   eset['v2']=vs[eset[,2]]
+  vf=unique(c(eset[,"v1"],eset[,"v2"]))
+  vfs=sort(vf)
+  dt=train[,c(which(index %in% vfs),871)]
+  dts1=dt[dt$y %in% y1,-ncol(dt)]
+  mean1=colMeans(dts1)
+  dts2=dt[dt$y %in% y2,-ncol(dt)]
+  mean2=colMeans(dts2)
+  df=cbind(mean1,mean2,vfs)
+  cor=c()
+  for(e in 1:nrow(eset)){
+    v1=eset[e,"v1"];v2=eset[e,"v2"]
+    r1=which(df[,3]==v1)
+    r2=which(df[,3]==v2)
+    prod=(df[r1,1]-df[r2,1])*(df[r1,2]-df[r2,2])
+    if(prod>0){cd=1}
+    else if(prod<0){cd=-1}
+    else{cd=0}
+    cor=c(cor,cd)
+  }
+  eset["cd"]=cor
   list(err=err,eset=eset,Vars=Vars,ypre=ypre)
 }
 
