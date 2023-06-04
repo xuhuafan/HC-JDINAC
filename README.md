@@ -3,10 +3,10 @@ This package provides the R function to implement the HC-JDINAC method for micro
   
 ## HC-LDA
 ### Description
-Perfrom HC-LDA,FAIR-LDA,SFLDA and FANS. Compute classification error (CE) and FDR like Table 3 in paper.
+Perfrom HC-LDA, FAIR-LDA, FANS and SFLDA. Compute classification error (CE) and FDR like Table 3 in paper.
 ### Examples
 ```
-##Given y1,y2, perform HC-LDA, FAIR-LDA, FANS and SFLDA. 
+##Given individual y1,y2, perform HC-LDA, FAIR-LDA, FANS and SFLDA. 
 data=read.csv("Edata.csv")
 y1=13;y2=16  ## perform binary classification between any two individauls by changing y1,y2
 result_hc=HC_LDA(y1,y2,data,alpha=0.1)  ## HC-LDA result
