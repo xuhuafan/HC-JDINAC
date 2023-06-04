@@ -33,8 +33,8 @@ eset=result$eset ## differential edge/interaction selected by JDINAC
 err=result$err ## classification error
 p=diffnet_plot(eset) ## differential interaction network
 gp=group_plot(eset)
-p1=gp$p1  #dumbbell diagram like Figure 5 in paper
-p2=gp$p2  #bar chart like Figure 5 in paper
+p1=gp$p1  #dumbbell diagram like Fig.5 in paper
+p2=gp$p2  #bar chart like Fig.5 in paper
 
 ##perform HC-JDINAC on given two communities C0,C1
 C0=c(3,13,26,29);C1=c(16,21,30,44)
@@ -69,8 +69,8 @@ eset=result$eset ## differential edge/interaction selected by JDINAC
 err=result$err ## classification error
 p=diffnet_plot(eset) ## differential interaction network
 gp=group_plot(eset)
-p1=gp$p1  #dumbbell diagram like Figure 5 in paper
-p2=gp$p2  #bar chart like Figure 5 in paper
+p1=gp$p1  #dumbbell diagram like Fig.5 in paper
+p2=gp$p2  #bar chart like Fig.5 in paper
 ```
 
 
