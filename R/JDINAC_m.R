@@ -132,6 +132,14 @@ jdinac.m <- function(h0,h1,EDGE,classLabel,DataFit,DataPre,nsplit=10,nfolds=5){
   list(yPre=yPre,Eset=Eset,Vars=Vars,preY=preY) 
 }
 
+#' @description function jdinac_Md: perform JDINAC with binned bivariate kernel density estimation on given two classes y1,y2;
+#' @param y1: the first class to be classified.
+#' @param y2: the second class to be classified.
+#' @param data: data matrices containing one sample per row, column "y" is class label, column "type" indicates "train" or "test", and the other columns are variables.
+#' @param dfh: data matrices containing one pairwise HC test per row, the first two columns are class labels tested by HC, and the other columns are 0,1 indicator, where 1 indicates the corresponding feature is selected by HC.
+#' @return The output will be a list containing the following components:
+#' @export err: testing classification error.
+#' @export Eset: matrix of differential edge set. The first two columns are the array indices; the edge between row-th variable and col-th variable. The 3rd column (numb) is the differential dependency weight; not normalized. The last two columns are features(wavenumbers) of each edge set.
 jdinac_md=function(y1,y2,data,dfh){
   pdim=870
   train=data[data$y %in% c(y1,y2) & data$type=="train",1:(pdim+1)]
