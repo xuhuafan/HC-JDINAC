@@ -19,7 +19,7 @@ result_sflda=SFLDA(y1,y2,data)  ## SFLDA result
 result_sflda$res  ##testing classification error(CE) and FDR
 ```
 
-## JDINAC with binned bivariate kernel density estimation.
+## JDINAC_b.R
 ### Description
 Perform JDINAC with binned bivariate kernel density estimation using kernel $K_\textbf{h}$ applied to the rescaling of the product kernel $K(\textbf{x}) = K(x_1)K(x_2)$ by the vector of bandwidths $\textbf{h} = (h_1, h_2)$.
 ### Examples
@@ -55,7 +55,7 @@ dt=read.csv("community-individual.csv")
 res=com_ind(eset1,C0,C1,dt)  ##testing classification error and confusing rate
 ```
 
-## JDINAC with bivariate kernel density estimation using bandwidth matrix.
+## JDINAC_m.R
 ### Description
 Perform JDINAC with bivariate kernel density estimation using bandwidth matrix with kernel $K$ and bandwidth matrix $\textbf{H}$, where $K_{\textbf{H}}(\textbf{x}) = |\textbf{H}|^{-1/2}K(\textbf{H}^{-1/2}\textbf{x})$ and $\textbf{x}=(x_1,x_2)$.
 ### Examples
