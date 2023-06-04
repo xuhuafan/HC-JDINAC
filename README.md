@@ -21,12 +21,7 @@ result_sflda$res  ##testing classification error(CE) and FDR
 
 ## JDINAC with binned bivariate kernel density estimation.
 ### Description
-Perform JDINAC with binned bivariate kernel density estimation using kernel $K_\textbf{h}$ applied to the rescaling of the product kernel $K(\textbf{x}) = K(x_1)K(x_2)$ by the vector of bandwidths $\textbf{h} = (h_1, h_2)$:
-$$
-{\color{orange}{
-K_\textbf{h}(\textbf{x})=K_{h_1}(x_1)K_{h_2}(x_2),}}
-$$
-where $K$ is a symmetric probability density function and $K_h(x) = K(x/h)/h$ is a rescaling of $K$ by the bandwidth $h>0$, $\textbf{x}=(x_1,x_2)$, $x_1$ and $x_2$ are different features.
+Perform JDINAC with binned bivariate kernel density estimation using kernel $K_\textbf{h}$ applied to the rescaling of the product kernel $K(\textbf{x}) = K(x_1)K(x_2)$ by the vector of bandwidths $\textbf{h} = (h_1, h_2)$.
 ### Examples
 ```
 ##perform HC-JDINAC on given two individuals y1,y2
