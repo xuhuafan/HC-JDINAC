@@ -198,3 +198,64 @@ jdinac_md=function(y1,y2,data,dfh){
   list(err=err,eset=eset)
 }
 
+#' @description function group_plot: Wavenumbers are grouped and dumbbell graphs and bar graphs are drawn to analyze the distribution of differential interactions.
+#' @param d: dataframe containing one differential edge per row, and columns "v1","v2" repersent the two nodes connected by the differntial edge.
+#' @return The output will be a network diagram.
+#' @export p1: the dumbbell graph of differential interactions.
+#' @export p2: the bar graph of the frequency of the differential interactions.
+library(dplyr)
+library(ggplot2)
+library(ggalt)
+group_plot=function(d){
+  d["var1"]="var1"
+  for(i in 1:nrow(d)){
+    v1=d[i,'v1']
+    if(v1 %in% c(1072:1099)){d[i,"var1"]=1084}
+    else if(v1 %in% c(1103:1144)){d[i,"var1"]=1124}
+    else if(v1 %in% c(1238:1246)){d[i,"var1"]=1242}
+    else if(v1 %in% c(1269:1306)){d[i,"var1"]=1286}
+    else if(v1 %in% c(1460:1482)){d[i,"var1"]=1462}
+    else if(v1 %in% c(1420:1459)){d[i,"var1"]=1440}
+    else if(v1 %in% c(1710:1750)){d[i,"var1"]=1730}
+    else if(v1 %in% c(2904:2944)){d[i,"var1"]=2924}
+    else if(v1 %in% c(1361:1401)){d[i,"var1"]=1381}
+    else {d[i,"var1"]=v1}
+  }
+  d["var2"]="var2"
+  for(i in 1:nrow(d)){
+    v1=d[i,'v2']
+    if(v1 %in% c(1072:1099)){d[i,"var2"]=1084}
+    else if(v1 %in% c(1103:1144)){d[i,"var2"]=1124}
+    else if(v1 %in% c(1238:1246)){d[i,"var2"]=1242}
+    else if(v1 %in% c(1269:1306)){d[i,"var2"]=1286}
+    else if(v1 %in% c(1460:1482)){d[i,"var2"]=1462}
+    else if(v1 %in% c(1420:1459)){d[i,"var2"]=1440}
+    else if(v1 %in% c(1710:1750)){d[i,"var2"]=1730}
+    else if(v1 %in% c(2904:2944)){d[i,"var2"]=2924}
+    else if(v1 %in% c(1361:1401)){d[i,"var2"]=1381}
+    else {d[i,"var2"]=v1}
+  }
+  group_d = d %>%
+    group_by(var1,var2) %>%
+    summarise(freq=sum(numb),.groups="keep")
+  group_d=group_d[order(group_d$freq,decreasing = T),]
+  group_d["db"]=1:nrow(group_d)
+  group_d["fq"]=group_d$freq/sum(group_d$freq)
+  group_d$var1=as.numeric(group_d$var1)
+  group_d$var2=as.numeric(group_d$var2)
+
+  p1=ggplot(aes(x=var1,xend=var2,y=db),data=group_d)+
+    geom_dumbbell(colour_x = "#FFB6C1",colour_xend = "#4169E1",
+                  size_x = 1.5,size_xend = 1.5,size=1,color="gray")+
+    xlab(expression(Wavenumbers(cm^-1)))+ylab("")+
+    scale_x_continuous(breaks = c(1124,1286,1462,1730,2000,2500,2924))+
+    theme_bw()+coord_flip()+
+    theme(text=element_text(size=14,  family="serif"),
+          axis.title.y = element_text(margin =margin(0,0.2,0,0,'cm')))
+  p2=ggplot(aes(x=db,y=fq),data=group_d)+
+    geom_bar(stat="identity",fill="#FC4E07")+
+    theme_bw()+xlab("Interactions")+ylab("Frequency") +
+    theme(text=element_text(size=14,  family="serif"),
+          axis.title.y = element_text(margin =margin(0,0.8,0,0,'cm')))
+  return(list(p1=p1,p2=p2))
+}
